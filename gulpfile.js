@@ -1,19 +1,16 @@
 var gulp = require('gulp');
-var less = require('gulp-less');
-var gulp_monify_css = require("1.");
+var uglify = require('gulp-uglify');
+var concat = require('gulp-concat');
 
-gulp.task('testLess', function() {
-    gulp.src(['src/less/**/*.less', '!src/less/{extend,page}/*.less'])
-        .pipe(less())
-        .pipe(gulp.dest('dist/css'));
-});
+// gulp.task('jsmin', function() {
+//     gulp.src('src/js/index.js')
+//         .pipe(uglify())
+//         .pipe(gulp.dest('dist/js'));
+// });
 
-gulp.task('minicss', ['testLess'], function() {
-    return gulp.src(['./dist/css/*.css'])
-        .pipe(minifyCss())
-        .pipe(gulp.dest('./dist/css'));
-});
-
-gulp.task('default', ['minicss'], function() {
-    console.log('this is a demo');
+gulp.task('default', function() {
+    gulp.src('src/js/**/*.js')
+        .pipe(uglify())
+        .pipe(concat('all.min.js'))
+        .pipe(gulp.dest('dist/build'));
 });
